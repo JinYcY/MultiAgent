@@ -22,7 +22,7 @@ tavily_client = TavilyClient(
 # ======================== 带重试的搜索封装 ========================
 
 @retry_with_backoff(
-    max_retries=3,
+    max_retries=1,
     base_delay=1.0,
     max_delay=10.0,
     exceptions=(Exception,),
@@ -46,7 +46,7 @@ def _search_with_retry(query: str, topic: str, max_results: int, include_raw_con
 def internet_search(
     query: str,
     topic: Literal["news", "finance", "general"] = "general",
-    max_results: int = 5,
+    max_results: int = 2,
     include_raw_content: bool = False,
 ):
     """

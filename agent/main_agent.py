@@ -1,8 +1,8 @@
 from agent.subagents.knowledge_base_agent import knowledge_base_agent
 from agent.subagents.database_query_agent import database_query_agent
 from agent.subagents.network_search_agent import network_search_agent
-from langgraph.checkpoint.sqlite import SqliteSaver
-import sqlite3
+from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
+import aiosqlite
 
 # main_agent tool导入
 from tools.markdown_tools import generate_markdown
@@ -28,20 +28,29 @@ from langchain_core.messages import AIMessage
 # 服务重启后对话历史不丢失，支持多轮对话上下文
 checkpoint_db_path = Path(__file__).parents[1] / "data" / "checkpoints.db"
 checkpoint_db_path.parent.mkdir(parents=True, exist_ok=True)
-_conn = sqlite3.connect(str(checkpoint_db_path), check_same_thread=False)
-checkpointer = SqliteSaver(_conn)
+_checkpointer = None
+_main_agent = None
+_checkpoint_conn = None
 
-main_agent = create_deep_agent(
-   model = model,
-   system_prompt=main_agent_content['system_prompt'],
-   tools= [generate_markdown,convert_md_to_pdf,read_file_content],
-   checkpointer=checkpointer,
-   subagents=[
-       database_query_agent,
-       network_search_agent,
-       knowledge_base_agent
-   ]
-)
+
+async def get_main_agent():
+    """在 FastAPI 事件循环中初始化异步 SQLite checkpointer。"""
+    global _checkpointer, _main_agent, _checkpoint_conn
+    if _main_agent is None:
+        print(f"[Checkpoint] 正在初始化检查点数据库: {checkpoint_db_path}")
+        _checkpoint_conn = await aiosqlite.connect(str(checkpoint_db_path))
+        _checkpointer = AsyncSqliteSaver(_checkpoint_conn)
+        await _checkpointer.setup()
+        _main_agent = create_deep_agent(
+            model=model,
+            system_prompt=main_agent_content['system_prompt'],
+            tools=[generate_markdown, convert_md_to_pdf, read_file_content],
+            checkpointer=_checkpointer,
+            subagents=[database_query_agent, network_search_agent, knowledge_base_agent],
+        )
+    else:
+        print("[Checkpoint] main_agent 已经初始化，直接复用实例")
+    return _main_agent
 
 # 执行
 """
@@ -53,8 +62,6 @@ main_agent = create_deep_agent(
                                    调用最终结果 -》 结果 -》 monitor -> 发送结果的方法
                                    开启调用以后 -》 当前会话 -》 文件夹地址 -》 推送到前端
 """
-
-
 
 project_root_path = Path(__file__).parents[1].resolve() # 绝对 解析路径标识以及软连接
 # project_root_path = Path(__file__).parents[1].absolute() # 绝对
@@ -126,6 +133,16 @@ async def run_deep_agent(task_query,session_id):
     """
     # 反馈结果
     try:
+        main_agent = await get_main_agent()
+        print(f"\n==== [Checkpoint 手动探测] thread_id = {session_id} ====")
+        # get_tuple(thread_id) 就是框架底层用来读取检查点的方法
+        saved_tuple = await main_agent.checkpointer.get_tuple(config)
+        if saved_tuple is None:
+            print(f"[Checkpoint探测结果] DB中没有找到该thread_id的历史检查点 → 全新会话")
+        else:
+            print(f"[Checkpoint探测结果] ✅读到历史检查点！")
+            print(f"  checkpoint_id: {saved_tuple.checkpoint_id}")
+            print(f"  消息列表长度: {len(saved_tuple.checkpoint['channel_values']['messages'])}")
         # 执行
         async for chunk in main_agent.astream({
             "messages":[
@@ -155,10 +172,11 @@ async def run_deep_agent(task_query,session_id):
                                 """
                                 if tool_call['name'] == 'task':
                                     # 调用某个子智能体
+                                    print("正在调用子agent", tool_call['args']['subagent_type'])
                                     monitor.report_assistant(tool_call['args']['subagent_type'],{'description':tool_call['args']['description']})
                         elif last_msg.content:
                             # 最终结果
-                            print(f"主智能体执行结果，最终结果：{last_msg.content[:100]}")
+                            print(f"主智能体执行结果，最终结果：{last_msg.content}")
                             monitor.report_task_result(last_msg.content)
 
     except Exception as e :

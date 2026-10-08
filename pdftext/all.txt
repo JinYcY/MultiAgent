@@ -1,0 +1,447 @@
+### C:\Users\金毅成\Desktop\Topic_1_2D_and_3D_Coordinates.pdf pages=82
+--PAGE 1--
+LSGI522 Spatial Data Acquisition  Topic 1  Geo-reference system,  2D and 3D coordinate systems
+--PAGE 2--
+•   The backbone of Geomatics  •   Provide the local, regional, global, and universal frame of reference for acquiring  and organising data and information  •   Many kinds of coordinate systems  ▪   Those in which measurements are made  ▪   Those that information is referenced to  ▪   Those that work in 2 and 3 dimensions  ▪   Those that refer to plane and curved surfaces  ▪   :  Coordinate systems
+--PAGE 3--
+Coordinate systems  •   Look at three groups:  ▪   2D coordinate systems  ▪   3D coordinate systems  ▪   Geo-coordinate systems
+--PAGE 4--
+2D coordinate systems
+--PAGE 5--
+2D coordinate systems  •   Plane coordinate systems  ▪   Rectangular (Cartesian) coordinates  •   (x,   y)  ▪   Polar coordinates  •   (r,   θ   )  •   Develop basic terms, relationships and  transformations  5
+--PAGE 6--
+Rectangular coordinates  •   Position of a point given with respect to an  origin by a pair of signed distances   (x, y)  ▪   A pair of orthogonal axes  ▪   Origin at   (0,0)  ▪   Right handed coordinates  •   x   +ve to the right,   y   +ve upwards  ▪   Left handed coordinates  •   x   +ve to the right,   y   +ve downwards  ▪   Axes usually have the same units  •   Conventionally   (x, y)   =   (E, N)  6
+--PAGE 7--
+Right-handed rectangular  3  2  1  -3  -2  -1
+--PAGE 8--
+Left-handed rectangular
+--PAGE 9--
+Polar coordinates  •   Position of a point is described with  respect to an origin in terms of a linear   (r)  and an angular   (  )   measurement  •   Need  ▪   A reference direction  ▪   A defined direction of angular measurement  •   Two systems  ▪   Geomatics (compass) - clockwise from   y  ▪   Mathematics - anticlockwise from   x  Copyright (c) Bruce King   9
+--PAGE 10--
+Geomatics polar  x, E  y, N
+--PAGE 11--
+Mathematics polar  Copyright (c) Bruce King  x, E  y, N
+--PAGE 12--
+Polar coordinates  •   Linear units as for rectangular coordinates  •   Angular units  ▪   Degrees, minutes and seconds   (ddd    mm    ss  )  ▪   Decimal degrees   (ddd. dddd  )  ▪   Grads or gons  •   360    = 400 gon
+--PAGE 13--
+Coordinate transformations  •   Between  ▪   Polar and rectangular  ▪   Different rectangular
+--PAGE 14--
+Polar and rectangular
+--PAGE 15--
+Polar and rectangular  •   Using   tan   −   1   functions  ▪   Two types  •   atan(a/b)   gives   −90   <      < 90  •   atan2(b, a)   gives   −180   <      < 180  ▪   For geomatics  •   a = x, b = y  ▪   For mathematics  •   a = y, b = x
+--PAGE 16--
+Between rectangular  •   Transforming between two sets of  rectangular coordinates may involve:  ▪   Scale,   s  ▪   Translation,   T  ▪   Rotation,     ▪   Reflection,   
+--PAGE 17--
+Between rectangular  •   Often need to transform from one  rectangular coordinate system to another  ▪   Putting a map on a digitising tablet and  outputting grid coordinates  ▪   Converting between pixel and image coordinates in photogrammetry  ▪   Converting between regional survey  coordinate system and a site system
+--PAGE 18--
+Coordinate transformations  •   Some transformations used in geomatics  ▪   Conformal, similarity or Helmert  •   One scale, one rotation, two translations  •   Preserves angles (shape)  ▪   Affine  •   Two scales, one rotation, two translations, one shear  •   Preserves relative directions (parallel lines)  •   Parameters  ▪   Explicitly or implicitly defined  ▪   Physical or linear   source
+--PAGE 19--
+Coordinate transformations  X  Y  y  x
+--PAGE 20--
+A(X   , Y   ), (x   , y   ) A   A   A   A   x  y  Y Conformal transformation  X    x   A  y A  X A  Y A  T y  Scale   s  Rotation,   +ve   anticlockwise  Translation  T x  T X  T Y
+--PAGE 21--
+Conformal transformation  •   The equations are  •   Where  •   And  x   A   =   s.X A .cos    +   s.Y A .sin      +   T x  y A   =   − s.X A .sin      +   s.Y A .cos    +   T y  •   Which can be written as  x   A   =   a.X A   +   b.Y A   +   c y A   =   − b.X A   +   a.Y A   +   d  d   =   T y a   =   s.cos    b   =   s.sin      c   =   T x  cosθ   sin   θ  a   b  =   =   a   2   +   b 2 θ   =   tan − 1   b   s   =  a  Non-linear equations Explicit physical parameters Can you derive these?  What is the form if      is  clockwise?  Linear equations  Implicit physical parameters
+--PAGE 22--
+Conformal transformation  •   Need to solve the transformation  parameters   (a, b, c, d)  ▪   Use control points  •   How many for a unique solution?  •   What happens with redundant control?  x   =   sMX   +   t   =   RX   +   t   =   BΔ  •   Matrix forms  M   is called the?
+--PAGE 23--
+Conformal transformation  •   For many points  ▪   Note that  residuals  l   +   v   =   BΔ  x   N   +   v x   N   =   a.X N   +   b.Y N   +   c y   N   +   v y N   =   − b.X N   +   a.Y N   +   d  x   A   +   v x A   =   a.X A   +   b.Y A   +   c y A   +   v y A   =   − b.X A   +   a.Y A   +   d  observations have 
+--PAGE 24--
+Conformal transformation  •   The   least   squares   solution  •   The variance of the parameters  T   T   − 1 − 1  Δ   =   ( B B )   B f   =   N   t  •   The residuals of observations can be  computed  v   =   BΔ   −   f  •   The   a posteriori   variance factor is  r  2  0  v T   v     =  0  2   − 1  diagonal   of      N  ˆ  ˆ
+--PAGE 25--
+Conformal transformation  •   Once the parameters are computed the  reverse transformation can be applied
+--PAGE 26--
+3D coordinate systems
+--PAGE 27--
+Rectangular coordinates  •   Three mutually perpendicular axes  •   Geomatics   mostly   use   right   handed  coordinates  Sourc e
+--PAGE 28--
+Rectangular coordinates
+--PAGE 29--
+Rectangular coordinates  for   data   storage  •   The   most   commonly   used   type   of  and coordinates computation  •   Units  •   SI metric   (km, m, mm)  •   Some systems may have different datum  for   X, Y   and   Z  •   See geo-coordinate systems  •   Conventionally   (x, y, z) = (E, N, H)
+--PAGE 30--
+Coordinate transformations  •   Between  ▪   Different rectangular
+--PAGE 31--
+Different rectangular  •   Main transformation is 3D conformal  ▪   One scale  ▪   Three rotations  ▪   Three translations  Y  X  y  x  Z  z  T Z  T X  T Y
+--PAGE 32--
+Different rectangular  •   Scale and translation are straight forward  •   Rotations are complicated  ▪   Most common system is omega, phi, kappa  •   Omega   (  )   –   about the   X   axis  •   Phi   (  )   –   about the   Y   axis  •   Kappa   (  )   –   about the   Z   axis  •   Rotations follow right hand screw rule  ▪   +ve   anticlockwise when viewed towards the origin  •   Rotations are sequential  ▪    ,    ,   
+--PAGE 33--
+Rotations  •   Consider two 3D coordinate systems with  the same origin  •   What   rotations   transform   coordinates   in  y  Y  x  X  (X, Y, Z)   into   (x, y, z) ?  z  Z
+--PAGE 34--
+Omega      X'   =   X  Y'   =   Y.cos    +   Z.sin     Z'   =   − Y.sin      +   Z.cos   x  Y    X,X   Z  Y   Z 
+--PAGE 35--
+X" =   X'.cos    −   Z'.sin     Y" =   Y'  Z" =   X'.sin      +   Z'.cos   Phi  35        X   Y  ,Y   X   Z   Z 
+--PAGE 36--
+Kappa  𝑥   =   𝑋 ". cos   𝜅   +   𝑌 ". sin   𝜅  𝑦   =   − 𝑋 ". sin   𝜅   +   𝑌 ". cos   𝜅  𝑧   =   𝑍 "    X   x  Y   y      Z  ,   𝑧
+--PAGE 37--
+(X, Y, Z)   to   (x, y, z)  x   =   MX  •   M   is called the rotation matrix  •   Back substitute to give
+--PAGE 38--
+Rotation matrix
+--PAGE 39--
+Rotation matrix  •   Orthogonal  •   Elements are direction cosines between  the two sets of coordinate axes  ▪   m 11   is between   x   and   X  ▪   m 12   is between   x   and   Y  ▪   m 13   is between   x   and   Z  ▪   :  ▪   :
+--PAGE 40--
+Scaling and translation  •   Scaling of   𝐗   to that of   𝐱  x   =   s.X  •   Translation of   𝐗  x   =   X   +   T x  •   Complete transformation  x   =   s MX   +   T x
+--PAGE 41--
+Geo-coordinate systems  •   Position on a sphere  •   The physical Earth  •   Gravity  •   The Geoid  •   The mapping problem  •   Geodetic datum
+--PAGE 42--
+Position on a sphere
+--PAGE 43--
+Geo-coordinate systems  •   Defining position on the Earth  •   Need to know about  ▪   Great circles  ▪   Small circles
+--PAGE 44--
+Great and small circles  •   Great circles  ▪   Intersection of a plane passing through the centre of a sphere  ▪   Shortest distance between two points on the surface of the sphere  •   Small circles  ▪   Intersection of a plane passing through any  other part of a sphere  •   All circles have a pole
+--PAGE 45--
+Great and small circles  Sourc e  Pole
+--PAGE 46--
+Longitude and Latitude  •   On the Earth  ▪   Great circles include  •   Equator  •   Meridians of longitude  ▪   Small circles include  •   Parallels of latitude  ▪   Poles include  •   North Pole  •   South Pole
+--PAGE 47--
+Longitude and Latitude  •   Longitude,     ▪   Angle in Equatorial plane  ▪   +ve   East and   –   ve   West from  Prime Meridian  •   Latitude,     ▪   Angle in meridional plane  ▪   +ve   North and   –   ve   South from the Equator   Sourc e  Parallels  of latitude  Pole  Greenwich  Prime  Meridian  Meridians of longitude  Equatorial  plane Meridional plane
+--PAGE 48--
+The physical Earth
+--PAGE 49--
+The physical Earth  •   3D shape  •   A fluid with unequal distributions of land  and ocean masses  •   Constantly changing shape  •   Constantly varying gravity field  •   Difficult to accurately assign geometric  parameters to describe its shape  •   Need to draw it on a 2D surface
+--PAGE 50--
+The physical Earth  ICSM
+--PAGE 51--
+Geometric shape  •   If we want a spherical dimension we could  choose from  ▪   Authalic radius   :   6,371.007 km  ▪   Equatorial radius ( a ):   6,378.14 km  ▪   Polar radius ( b ):   6,356.75 km  ▪   Average radius   (a + b)/2 :   6,367.45 km  ▪   Quadratic mean radius   :   6,372.80 km  ▪   Volumetric radius   :   6,371.001 km  Of course, these are constantly changing  Sphere of same surface area as a specific reference ellipsoid
+--PAGE 52--
+Geometric shape  •   Better shape is a spheroid  •   Characterised by dimensions of semi axes  a, b, c  •   Oblate spheroid  ▪   a = c > b  }  }   Ellipsoid of revolution  •   Prolate spheroid  ▪   a = c < b  }  }  about   b   axis  •   Scalene ellipsoid has three different axis  dimensions  Wiki  ResearchGate
+--PAGE 53--
+Oblate spheroid  Minor semi-axis  (polar),   b  Third semi-axis,   c  Major semi-axis (equatorial),   a
+--PAGE 54--
+Oblate spheroid  ▪   Flattening  ▪   Inverse flattening  ▪   First eccentricity   2   a 2   +   b 2  a 2  e   =   f (2   −   f )   =  2   a 2   +   b 2  b 2 e'   =  a  •   Flattening relationships  f   =   a   −   b  a  a   −   b  1/ f   =  2   b 2  a   2  e   =   1 −  b 2  a   2  2  e'   =   − 1 ▪   Second eccentricity
+--PAGE 55--
+Why is the Earth oblate?  •   The most suitable spheroid for Earth is an  oblate spheroid  •   3 reasons  ▪   The effects of gravity and rotation  ▪   The effects of warming of the oceans   }  ▪   Internal re-distribution of mass   }   Hypothetical
+--PAGE 56--
+Why is the Earth oblate?  •   The effects of rotation  ▪   If   the   Earth   did   not   rotate   it   would   be approximately   spherical   due   to   gravitational force   f g   = M. G  ▪   Rotation causes centripetal acceleration radial from   and   proportional   to   the   distance   from rotation axis  •   Centripetal acceleration is directed towards the axis  with the resultant centrifugal force in the opposite  direction   f c   = M. r.   
+--PAGE 57--
+Why is the Earth oblate?  M      6x10 24   kg G = 9.8 ms -2  f g   = 5.88x10 25   N  f g   = MG  Gravitational force,   f g
+--PAGE 58--
+Why is the Earth oblate?     f c   = Mr  2  f c   = Mr  2   N  M      6x10 24   kg r = R.cos    m  R = 6,372 x 10 3   m   = 2  /24/3600 rad s -1  Centrifugal force, f c  f r   is the component opposed to f g  r   f c   = Mr  2  R
+--PAGE 59--
+Axis dimensions  •   The   chosen   dimensions   of   the   major   and  minor semi-axes depend on the purpose  •   Most   choices   relate   fitting   a   portion   of   an ellipsoid to a part of the   Earth’s   surface for mapping  •   Called reference ellipsoid  •   Also have global ellipsoids
+--PAGE 60--
+Reference ellipsoids  Find the reference ellipsoids for Hong Kong and China.  Reference ellipsoid name   Equatorial radius (m)  Polar radius (m)   Inverse flattening   Where used  Maupertuis   (1738)   6,397,300   6,363,806.283   191   France  Plessis   (1817)   6,376,523.0   6,355,862.9333   308.64   France  Everest   (1830)   6,377,299.365   6,356,098.359   300.80172554   India  Everest 1830 Modified (1967)   6,377,304.063   6,356,103.0390   300.8017   West Malaysia & Singapore  Everest 1830 (1967 Definition)   6,377,298.556   6,356,097.550   300.8017   Brunei & East Malaysia  Airy   (1830)   6,377,563.396   6,356,256.909   299.3249646   Britain  Bessel   (1841)   6,377,397.155   6,356,078.963   299.1528128   Europe, Japan  Clarke   (1866)   6,378,206.4   6,356,583.8   294.9786982   North America  Clarke   (1878)   6,378,190   6,356,456   293.4659980   North America  Clarke   (1880)   6,378,249.145   6,356,514.870   293.465   France, Africa  Helmert   (1906)   6,378,200   6,356,818.17   298.3  Hayford   (1910)   6,378,388   6,356,911.946   297   USA  International (1924)   6,378,388   6,356,911.946   297   Europe  Krassovsky   (1940)   6,378,245   6,356,863.019   298.3   USSR, Russia, Romania  WGS66   (1966)   6,378,145   6,356,759.769   298.25   USA/DoD  Australian National (1966)   6,378,160   6,356,774.719   298.25   Australia  New International (1967)   6,378,157.5   6,356,772.2   298.24961539  GRS-67 (1967)   6,378,160   6,356,774.516   298.247167427  South American (1969)   6,378,160   6,356,774.719   298.25   South America  WGS - 72   (1972)   6,378,135   6,356,750.52   298.26   USA/DoD  GRS - 80   (1979)   6,378,137   6,356,752.3141   298.257222101   Global   ITRS [3 ]  WGS - 84   (1984)   6,378,137   6,356,752.3142   298.257223563   Global   GPS  IERS   (1989)   6,378,136   6,356,751.302   298.257  IERS (2003) [4 ]   6,378,136.6   6,356,751.9   298.25642   Source
+--PAGE 61--
+Reference ellipsoids  •   Most common global ellipsoid is WGS84  ▪   Origin at the gravitational centre of the Earth  •   Origin   of   local,   regional   and   national  ellipsoids differ from that of the Earth  •   Errors involved by using a sphere instead  of   an   ellipsoid   are   acceptably   small   for mapping scales < 1:5,000,000  •   At larger scales a more accurate reference ellipsoid is required
+--PAGE 62--
+Reference ellipsoids  Global reference ellipsoid  Centre of mass of Earth  Local reference ellipsoid
+--PAGE 63--
+Why so much variation?  •   The problem is gravity  •   Varies from place to place  •   Measurements of   Earth’s   shape made with  instruments aligned with gravity  ▪   Theodolites  ▪   Gravimeters  ▪   Satellites  NASA  Wiki
+--PAGE 64--
+Gravity  •   Study of gravity and its effect on the Earth  is known as (Physical) geodesy  •   Gravity has magnitude and direction  •   Measured in relative and absolute terms  •   Unit = gal = 10 mm sec -2  •   Affects all survey measurements  •   Smith,   J.R.   (1997).   Introduction   to  Geodesy . Wiley. QB281.S55 1997
+--PAGE 65--
+Gravity  •   Equipotential surfaces are those with same  gravitational   potential   energy  •   The equipotential surface that represents  mean sea level (MSL) is called the Geoid  ▪   This is an irregular surface that responds to  variation in mass, M  •   Level   surfaces   are   other   equipotential surfaces above and below the Geoid  r  −   GMm  U   =  G = gravitational constant     6.67x10 -11   N(kgm) -2  M = mass of attracting body m = mass of test body  r = radial distance
+--PAGE 66--
+Gravity  •   Equipotential surfaces are not parallel  •   Depends on the density and distribution of  surrounding material  Sourc e  M under the oceans is  smaller so r is smaller for the same U  M under mountains is larger so r is larger for the same U
+--PAGE 67--
+Gravity  •   When related to a specific reference ellipsoid we see  ▪   Geoid undulations  ▪   Geoid-spheroid separations  ▪   Geoid height, N  •   Difference between mean and actual  gravity values are called gravity anomalies
+--PAGE 68--
+Geoid  Sourc e  Geoid-Spheriod separation or Geoid undulation
+--PAGE 69--
+EGM2008  EGM 2008 Geoid undulations  NGA  EGM 2008 gravity anomalies  NGA  A   nice   video
+--PAGE 70--
+Gravity  •   An associated phenomenon is deflection of  the vertical  •   Difference in direction of Geoid normal and ellipsoid normal  •   Two components  ▪      (xi), North-South direction  ▪      (eta), East-West direction
+--PAGE 71--
+Gravity  •   Causes difficulty in measuring heights over  large areas  •   Different height systems  ▪   Orthometric height (H)  •   Height measured along the local vertical  ▪   Ellipsoidal height (h)  •   Height measured along the normal to the ellipsoid  ▪   Dynamic height  •   Height   measured   with   respect   to   equipotential surfaces
+--PAGE 72--
+Gravity
+--PAGE 73--
+Geometry of the spheroid  Geodetic position and distances
+--PAGE 74--
+Geodetic and geocentric latitude  •   Geodetic latitude,     ▪   The angle in the meridional plane generated by the spheroid normal  •   Geocentric latitude,      (psi),  ▪   The angle in the meridional plane generated at the spheroid centre  •   Difference   is   a   maximum   at   45    and,  depending   on   the   spheroid,   can   be   as large as 12 minutes of arc
+--PAGE 75--
+Geodetic and geocentric latitude  Maling
+--PAGE 76--
+Radii of curvature  •   Radius of curvature in  ▪   Meridian plane,      (rho), R M  ▪   Prime vertical,      (nu), R N  •           •   At PolyU in WGS84  ▪      = 6,345,411.2 m  ▪      = 6,381,484.6 m     =   a ( 1 −   e 2   ) / ( 1 − e 2   sin 2    ) 3/ 2     =   a / ( 1 −   e 2   sin 2    ) 1/   2  NPS
+--PAGE 77--
+The mapping problem
+--PAGE 78--
+The mapping problem  •   Measure with respect to gravity  ▪   Smoothly irregular surfaces  •   Represent location on a geometric surface  ▪   Ellipsoid  •   Draw onto a flat surface  ▪   Paper map  ▪   Computer monitor
+--PAGE 79--
+Consequences  •   How to relate field measurements based  on the direction of gravity to a position on a  reference ellipsoid?  •   How to represent a position on an ellipsoid  on a flat piece of paper?
+--PAGE 80--
+Results  •   Need to define position on each surface  ▪   Geoid  ▪   Ellipsoid  ▪   Paper  •   Need to convert between these positions  •   Need to convert field observations into these positions  •   Need to choose a map projection
+--PAGE 81--
+Geodetic datums  •   The complete relationship between  ▪   The Geoid     ▪   The reference ellipsoid     ▪   The map projection  ▪   The survey measurements
+--PAGE 82--
+Reference books  Chen, Y.Q. and Y.C. Lee, 2001. Geographical data acquisition.  Springer.  IIiffe, J., Lott, R., 2008. Datums and Map Projections: For Remote Sensing, GIS and Surveying, Second Edition, Whittles Publishing.
+### C:\Users\金毅成\Desktop\Topic_2_Surveying.pdf pages=83
+--PAGE 1--
+LSGI522 Spatial Data Acquisition  Topic 2 Land surveying
+--PAGE 2--
+Outline  •   Introduction  •   Positioning techniques  •   Surveying instrumentation  •   Surveying concepts  •   Advanced surveying techniques  •   Traversing
+--PAGE 3--
+Introduction
+--PAGE 4--
+Introduction  •   Have seen that the Earth   isn’t   flat, or round or any geometric shape  •   Maps and GIS systems need data   –   2D  and 3D   –   to be meaningful  •   Land surveying is a prime source of highly  accurate data  •   Use of specialised instruments  •   Angle, distance and height measurement  •   Computation of position
+--PAGE 5--
+Types of land surveying  •   Geodetic  ▪   Measurement of the shape of the Earth  •   Topographic  ▪   Measurement of the shape of the   Earth’s  surface  •   Engineering  ▪   Dimension and location control of construction projects  •   Cadastral  ▪   Definition of land parcel boundaries
+--PAGE 6--
+Types of land surveying  •   If the portion of the   Earth’s   surface being surveyed   is   small   enough   then   plane surveying techniques can be used  •   For all surveys observations have to be reduced to a reference surface (datum)  •   Net result for all types of surveying are  positions (coordinates)  •   Positions   derived   from   measurement   of  angles and distances
+--PAGE 7--
+Plane surveying  •   How far can we survey before the   Earth’s  curvature is important?  A   B  C  R   R  For   R = 6,378,388 m   at what value of   θ   does the difference between the arc distance become larger than the chord distance by a specified amount   d ?  θ  2  R.   θ −   2. R. sin   < d  R. sin   θ  2   R. sin   θ  2  R.   θ  θ   θ  2   2
+--PAGE 8--
+Plane surveying  θ   R.   θ   (m)  θ  2. R. sin   2   (m)   d (m)   θ   R.   θ   (m)  θ  2. R. sin   2   (m)   d (m)   θ   R.   θ   (m)  θ  2. R. sin   2   (m)   d (m)  0   0.0000   0.0000   0.0000   0.0   0.0000   0.0000   0.0000   0.00   0.0000   0.0000   0.0000  1   111319.7177   111318.3048   1.4129   0.1   11131.9718   11131.9704   0.0014   0.01   1113.1972   1113.1972   0.0000  2   222639.4354   222628.1322   11.3031   0.2   22263.9435   22263.9322   0.0113   0.02   2226.3944   2226.3943   0.0000  3   333959.1531   333921.0057   38.1474   0.3   33395.9153   33395.8772   0.0381   0.03   3339.5915   3339.5915   0.0000  4   445278.8707   445188.4498   90.4210   0.4   44527.8871   44527.7966   0.0904   0.04   4452.7887   4452.7886   0.0001  5   556598.5884   556421.9910   176.5974   0.5   55659.8588   55659.6822   0.1766   0.05   5565.9859   5565.9857   0.0002  6   667918.3061   667613.1586   305.1475   0.6   66791.8306   66791.5254   0.3052   0.06   6679.1831   6679.1828   0.0003  7   779238.0238   778753.4849   484.5389   0.7   77923.8024   77923.3178   0.4846   0.07   7792.3802   7792.3798   0.0005  8   890557.7415   889834.5060   723.2355   0.8   89055.7741   89055.0507   0.7234   0.08   8905.5774   8905.5767   0.0007  9   1001877.4592   1000847.7628   1029.6963   0.9   100187.7459   100186.7159   1.0300   0.09   10018.7746   10018.7736   0.0010  10   1113197.1769   1111784.8012   1412.3756   1.0   111319.7177   111318.3048   1.4129   0.10   11131.9718   11131.9704   0.0014
+--PAGE 9--
+Accuracy and precision  •   Accuracy is the degree of absence of error  •   All observation contain error  •   E = O   –   T  •   Observation is what is measured  •   True is what is known  ▪   May be a physical quantity  •   Sum of angles in a triangle = 180   ▪   May be an adopted value  •   Measured by a highly reliable technique
+--PAGE 10--
+Accuracy and precision  •   3 types of errors  ▪   Gross errors (mistakes)  ▪   Systematic errors (bias)  ▪   Random errors (left over)  •   Eliminate   gross   errors   by   care   and technique  •   Identify,   model   and   minimise   effects   of  systematic errors  •   Statistically analyse random errors
+--PAGE 11--
+Accuracy and precision  •   Accuracy relates to error  •   Precision relates to reliability  ▪   Represented by standard deviation ( 𝜎 ) or variance ( 𝜎 2 )  ▪   Indication of random error  ▪   Considered to form a normal distribution  ▪   E.g. a quantity was measured 10 times  •   99, 90, 100, 91, 94, 93, 98, 93, 91, 96  •   Mean = 94.5  •   Standard deviation = 3.6
+--PAGE 12--
+Accuracy and precision  •   Effects of error assessed by propagation of  errors  1   2  𝜕 f   𝜕 f   𝜕 f  n  ▪   y = f x 1 , x 2   …   x n   ; dy =   𝜕 x   . dx 1   +   𝜕 x   . dx 2   +   ⋯   𝜕 x   . dx n  •   Precision ( σ ) assessed by the special law  of propagation of variances ( σ 2 )  ▪   σ y   =   ±   𝜕 f  𝜕 x 1  2  x 1  σ 2   +   𝜕 f  𝜕 x 2  2  x 2  σ 2   +   ⋯   𝜕 f  𝜕 x n  2  x n  σ 2  Note that errors have signs and must be added algebraically
+--PAGE 13--
+Accuracy and precision  •   Example  ▪   A distance,   y , is made up of three parts  •   x 1   = 23.65 m ,   x 2   = 28.83 m ,   x 3   = 33.92 m  •   y = f x 1 , x 2 , x 3   = x 1   + x 2   + x 3  ▪   It was found that three distances have errors  proportional to their length  •   E =   −0.002   ∗   x  •   d x 1   =   −0.047   m ,   d x 2   =   −0.058   m ,   d x 3   =   −0.068   m  This would be a systematic error
+--PAGE 14--
+Accuracy and precision  •   What is the error of the computed distance?  𝜕 f   𝜕 f  1   2  𝜕 f  3  ▪   dy =   𝜕 x   . dx 1   +   𝜕 x   . dx 2   +   𝜕 x   . dx 3  ▪   𝜕 f   𝜕 f   𝜕 f  𝜕 x 1   𝜕 x 2   𝜕 x 3  = 1 ,   = 1 ,   = 1  ▪   dy = 1.   −0.047   + 1.   −0.058   + 1.   −0.068   m  =   −0.173   m
+--PAGE 15--
+Accuracy and precision  •   What if those   “errors”   were the precisions  of each distance?  ▪   σ y   =   1 2 .   −0.047   2   + 1 2 .   −0.058   2   + 1 2 .   −0.067   2  =   ± 0.101 m
+--PAGE 16--
+Positioning techniques
+--PAGE 17--
+Positioning techniques  •   With respect to a frame of reference the  location of an unknown point may be determined by  ▪   Radiation  ▪   Intersection  ▪   Resection
+--PAGE 18--
+Positioning techniques  •   Positions may be relative or absolute  •   Require orientation  •   Position within a context  ▪   Local  ▪   Regional  ▪   Global
+--PAGE 19--
+Positioning techniques  •   Position is often separated into two  components  ▪   Horizontal position (planimetric)  ▪   Vertical position (height)  •   Measured separately or simultaneously  •   Distances commonly resolved into horizontal and vertical components  •   Position by Cartesian coordinates in an  appropriate reference system
+--PAGE 20--
+Angles  •   An angle ( θ )   is measured between two  points  •   Measurements made with a protractor  ▪   Each reading is a direction  •   When the direction is oriented it becomes a bearing ( β )  •   When oriented to True North it becomes an  azimuth ( α )
+--PAGE 21--
+Angles  Direction A 12.0   Direction B = 110.0   Grid North 29.5   True North 37.0   B  A  β A   = 12.0    −   29.5   =   −17.5   = 342.5   α A   = 12.0    −   37.0   =   −25.0   = 335   Angle = 110.0    −   12.0    = 99.0   β B   = 110.0    −   29.5    = 80.5   α B   = 110.0    −   37.0    = 73.0 
+--PAGE 22--
+Radiation  •   Unknown point,   P ,   is located with respect  to a known point,   A ,   by the polar  measurement of  ▪   Angle,   θ   measured clockwise  ▪   Distance,   r  •   Requires a reference direction,   θ 0  •   Polar is resolved into   dX   and   dY
+--PAGE 23--
+Radiation  Reference  Direction to   R ,   θ 0  Measured  angle,   θ RAP   Measured  distance,   r  Point of unknown position,   P(X P ,Y P )  Y  X  Bearing to   P ,    AP  Bearing to   R ,   β AR  Point of known  position,   A(X A , Y A )  If   Y   corresponds to True North, bearings become azimuths.  dX  dY
+--PAGE 24--
+Radiation  X P   =   X A   +   dX AP  Y P   =   Y A   +   dY AP  dX AP   =   r AP   .sin  AP  dY AP   =   r AP   .cos  AP   AP   =    AR   +    RAP  X P   =   X A   +   r AP   .sin (  AR   +    RAP   )  Y P   =   Y A   +   r AP   .cos (  AR   +    RAP   )
+--PAGE 25--
+Radiation - precision  •   How does the precision of   observations accumulate using this method?  •   Standard deviations (  ) for  ▪   X A ,Y A ,    AR , r AP ,    RAP  •   The precision of   (X P ,Y P )   is  2 P 2 P 2 P P   2  Y A Y P  r AP X A  X P    AR  RAP     .      AR          Y    2     .    +      2     RAP          Y     .    +          r AP          RAP          AR     AP     r      Y    2  +    .          A     Y      Y    2     =           AR          X  +      P      .  2   2    2     RAP      +      P      .  2     AP     r    A     X      X    2       X    2       X     =      P      .  2   +      P      .  2
+--PAGE 26--
+Radiation - precision  •   Then          cos (    +    )    =   − sin  cos    −   cos  sin      =   − sin (    +    )   =       cos (    +    )     sin (    +    )   =   cos  cos    −   sin  sin      =   cos (    +    )   =      sin (    +    )   AP  RAP   Y P   =   − r AP   .sin (  AR   +    RAP   ) =   − 76.6044    Y P   =   − r AP   .sin (  AR   +    RAP   ) =   − 76.6044   Y A    r AP   Y P   =   1    Y P   =   cos (  AR   +    RAP   ) =   0.6428   AR  RAP   X P   =   r AP   .cos (  AR   +    RAP   ) =   64.2788    X P   =   r AP   .cos (  AR   +    RAP   ) =   64.2788   X P   =   sin (  AR   +    RAP   ) =   0.7660   X A    r AP   X P   =   1  •   Let’s   say  X A   =   1,000m   Y A   =   5,000   r AP   =   100m    RAP   =   60     AR   =   350    X A   =    Y A   =   5mm    r AP   =   3mm     AR   =     RAP   =   5"  sin (    +    )   =   sin  cos    +   cos  sin     cos (    +    )   =   cos  cos    −   sin  sin     dsin      =   cos      d cos      =   − sin        
+--PAGE 27--
+Radiation - precision  •   Then  •   Each point located has precision  ▪   Lower than the point from which it was located  ▪   Dependent upon  •   Precision of the point it was located from  •   Precision of all observations made
+--PAGE 28--
+Intersection  •   Unknown point,   P , is located with respect  to two known points,   A   and   B , by either  ▪   Measurement of two angles (  BAP ,  PBA )  ▪   Measurement of two distances ( r AP ,r BP )  ▪   Measurement of one angle and one distance from different points (  BAP ,r BP ) or ( r AP ,  PBA )
+--PAGE 29--
+Intersection  Measured  angle,    BAP  Measured distance,   r AP  Point of unknown position,   P(X P ,Y P )  Y  X  Point of known  position,   A(X A ,Y A )  Measured angle,    PAB  distance,   r BP  BA Bearings      and   AB   computed  from coordinates of   A   and   B  Point of known  position,   B(X B ,Y B )   BA  Measured   AB
+--PAGE 30--
+Intersection   –   triangle solution  Use join to compute coordinates of   P   (two ways)  X P   =   X A   +   dX AP   =   X A   +   r AP   .sin  AP   =   X B   +   dX BP   =   X B   +   r BP   .sin  BP  Y P   =   Y A   +   dY AP   =   Y A   +   r AP   .sin    AP   =   Y B   +   dY BP   =   Y B   +   r BP   .sin    BP  Compute bearings of sides   AP   =    AB   +    BAP    BP   =    BA   −    PBA  Solve for angles with cos rule  Baseline,   AB  Check sum of angles
+--PAGE 31--
+Resection  •   Unknown point,   P , is located with respect to three known points,   A ,   B   and   C   by  ▪   Measurement of three angles OR  ▪   Measurement of three distances
+--PAGE 32--
+Resection  Measured angle,    APB  Measured distance,   r A  Point of unknown position,   P(X P ,Y P )  Y  X  Point of known position,   A(X A ,Y A )  Point of known  B   B position,   B(X ,Y )  Measured distance,   r B  Point of known position,   C(X C ,Y C )  Measured distance,   r C  Measured  angle,    BPC
+--PAGE 33--
+Resection   –   by angles Y  X  A single angle can  produce many locations
+--PAGE 34--
+Resection   –   by distances  Two distances give  two possible solutions  Three distances give unique solution  Y  X
+--PAGE 35--
+Surveying instrumentation  Deumlich, F. (1982).   Surveying Instruments . W. de Gruyter, Berlin.  TA562.D413
+--PAGE 36--
+Instrument types  •   Three basic categories  ▪   Angle measurement - theodolites  ▪   Distance measurement - tapes, EDME  ▪   Height difference measurement - levels  •   First two used to be separate instruments now combined into the Total Station
+--PAGE 37--
+Theodolite  •   Purpose  ▪   Measure angles in the horizontal and vertical  planes in DMS or gon (360    = 400g)  ▪   Referenced to local vertical
+--PAGE 38--
+Theodolite  •   Construction  ▪   Three mutually orthogonal axes  •   Vertical or standing axis  •   Trunion axis  •   Optical or collimation axis  ▪   Telescope with cross-hairs  ▪   Horizontal and vertical circles  ▪   Vertical indexing device  ▪   Clamps and tangent screws
+--PAGE 39--
+Theodolite  A Thomas Jones transit  Topic 2 Surveying  A Kern DKM2 theodolite  Trunion (Transit) axis  Vertical (standing) axis  Collimation axis  Both instruments are in Face Right
+--PAGE 40--
+Theodolite  Kern DKM3A Deumlich  Topic 2 Surveying  Circle reading  Deumlich
+--PAGE 41--
+Theodolite  Leica  Trimble  Topcon
+--PAGE 42--
+Theodolite  •   Horizontal circle can be oriented in any direction  ▪   Upper and lower plate clamps or circle lock  ▪   Electronic control  •   Vertical circle  ▪   May have 0    or 90    at zenith  ▪   Indexed by a spirit bubble or pendulum device  •   Verticality of axis defined by plate bubble  or dual axis compensator
+--PAGE 43--
+Theodolite  •   Specifications  ▪   Angular resolution   1’   -   0.1”  ▪   Levelling accuracy   1’   -   0.5”  ▪   Telescope magnification 15x - 80x  ▪   Plumbing accuracy 3mm - 1mm
+--PAGE 44--
+Theodolites   –   systematic errors  •   Sources  ▪   (Horizontal) Collimation axis misalignment  ▪   Vertical collimation  ▪   Trunion axis tilt  ▪   Circle eccentricity  ▪   Verticality of standing axis  •   Observation solution  ▪   All but last one can be minimised by taking  two face observations  ▪   Electronic devices can reduce this need  Topic 2 Surveying
+--PAGE 45--
+Horizontal collimation  FL  90-e c   90-e c  FR  •   Collimation axis not perpendicular to trunnion axis  Collimation axis  to A  e c   = -8    e c   = +8   Trunion axis
+--PAGE 46--
+Theodolite - other errors  •   Plumbing/centring  ▪   Applies to targets too  •   Setting  •   Pointing  •   Reading  •   Booking
+--PAGE 47--
+Distance measurement  •   Two categories  ▪   Tapes  ▪   Electromagnetic (EDM)  •   Tapes up to 100 m long  •   EDMI  ▪   Reflectorless up to 200 m  ▪   Reflector up to 7.5 km to single prism
+--PAGE 48--
+EDM  •   Electromagnetic distance measurement  •   Equipment used is called EDME or EDMI  •   Used to be individual instruments but now integrated with theodolite - total station  •   Infrared or laser  •   Phase comparison or time of flight  •   Reflector or reflectorless
+--PAGE 49--
+EDM - phase comparison  •   Infra   red   carrier   wave amplitude   modulated   with  measuring frequency  •   Distance   determined   by comparing   the   phase   of outgoing and reflected signals  •   Wavelength of EM wave,    =v/f  •   Speed of propagation depends on the refractive   index of the medium  •   Proportional to air temperature  and pressure  Uren
+--PAGE 50--
+EDM - phase comparison  •   A distance will have a number  of whole wavelengths plus a  portion  •   As it is a reflected signal,   2D = n    +   •   Portion,    , determined by the equivalent angular component, the phase angle  •   Distances built up by changing  the measuring frequency in  multiples of 10  •   Reflection by corner cube of  surface  Uren
+--PAGE 51--
+EDM - phase comparison  •   Systematic errors  ▪   Zero error, prism constant }  ▪   Scale error   }  ▪   Cyclic error   }  ▪   Refractive index  •   Specifications in two parts   (a+b)  ▪   Constant,   a   mm  ▪   Proportional,   b   ppm  ▪   Sokkia reflector (0.8+1)   –   (2+2), r-less (5+3)  Calibration  Atmospheric observations
+--PAGE 52--
+EDM - time of flight  •   Two-way time of travel of a laser pulse  •   D = v.t/2  •   Accuracy depends on  ▪   Angle of incidence  ▪   Nature of surface being measured to  •   Colour  •   Roughness  •   Wet or dry  ▪   Atmospheric conditions  ▪   Ambient lighting conditions
+--PAGE 53--
+Total stations  •   Combination of theodolite and EDMI  •   Allows rapid 3D positioning with one instrument  •   Combines many computational and set-out  functions  •   Many can interface to a PDA, notebook computer or data recorder  •   Some are one-man operation   “surveying  robots”
+--PAGE 54--
+Levelling  •   Determination of height  ▪   Direct or absolute  ▪   Differential  •   Most accurate is by differential techniques  ▪   Differential levelling  ▪   3D by total station  •   The term   “levelling”   refers to differential levelling
+--PAGE 55--
+Levelling  •   Direct measurement of differences in  height between two points  •   Differences in height measured with a level  and staff  •   Point of known height called a benchmark  •   Bench marks are established with respect to a vertical datum (e.g. reference ellipsoid)  •   Known height is called reduced level, RL
+--PAGE 56--
+Levelling  Bench Mark  0.1  0.2  0.3  0.4  0.5  0.6  0.7  Unknown point  0.1  0.2  0.3  0.4  0.5  0.6  0.1  0.2  0.3  0.4  0.5  0.6  0.7  BS 1 FS 1  BS 2 FS 2  Direction of levelling  Height of  collimation  Height of collimation
+--PAGE 57--
+Levelling  •   Two methods of recording and computation  ▪   Rise and fall  •   Rise or fall between staff points,   R i   or F i   = BS i   - FS i  •   RL i+1 = RL i   +(R i   or F i )  ▪   Height of collimation  •   Height of   level’s line   of sight established, then other points wrt to it  •   HC i   = RL i   +BS i  •   RL i+1   = HC i   -FS i
+--PAGE 58--
+Levelling  •   A level is a telescope with   it’s   line of collimation  set horizontal and are of two types  ▪   Automatic  ▪   Tilting  •   Automatic levels use a compensator to establish a level (horizontal) line of sight  •   Tilting levels use a tubular (spirit) bubble  •   The staff reading system is either  ▪   Optical  ▪   Digital
+--PAGE 59--
+Levelling  •   Topcon   levels  •   Leica   levels  Topcon   AT - 24A  Nestle NAN3 Deumlich Source  Staff for optical levelling Staff for digital levelling
+--PAGE 60--
+Levelling   –   systematic errors  •   Collimation error,    ▪   Line of sight not horizontal  ▪   Tested for by two peg test  ▪   Adjusted by  •   Eyepiece in automatic levels  •   Bubble in tilting levels  •   Staff zero error  ▪   Bottom of staff not at zero reading  ▪   Use same staff at   “start”   and   “finish”
+--PAGE 61--
+0.1  0.3  0.4  0.5  0.6  0.1  0.3  0.4  0.5  0.6  Horizontal    d 1 d 2  r 2A  0.2  r 1B  A   B  1  r 2B  r 0.2   1A    2A  2   r   T  1A  r   T   1B  r   T  2B  r   T  Levelling   -   two peg test
+--PAGE 62--
+Levelling   –   random errors  •   Non-verticality of staff  ▪   Use staff bubble  •   Maladjusted bubble would produce a systematic error  ▪   Use two hands  •   Sinking of staff  ▪   Use change plates  ▪   Stable change points
+--PAGE 63--
+Surveying concepts
+--PAGE 64--
+Introduction  •   Basic principle of working from the whole to the part  •   Purpose is to limit the accumulation of  errors  •   Requires creation of a control network  ▪   First order  ▪   Second order  ▪   Third order  •   Finish off with the collection of detail
+--PAGE 65--
+Introduction  •   Control networks cover large areas and,  up to a point, use geodetic surveying  •   First order control is at the national level  •   Second   order   control   is   at   the   regional  level  •   Third order control is at the local level  •   Design and survey requirements given in a specification.   See   NZ   Specifications   for  Geodetic   Hydrographic   Control   Points   (pdf)
+--PAGE 66--
+Source   Source
+--PAGE 67--
+Control networks  •   Defined   by   structures   known   as   control  points  ▪   First   order   networks   are   typically   concrete  pillars   in   prominent   locations   (often   called   trig  station)  ▪   Second   order   networks   are   typically   concrete blocks or metal tubes or plates  ▪   Third order networks they are typically wooden stakes, drill holes, soil nails …  •   Hong   Kong’s   network
+--PAGE 68--
+Surveying
+--PAGE 69--
+Control points  Source  Source
+--PAGE 70--
+Survey techniques for control  •   Traditional field techniques are largely being replaced by GPS surveys  ▪   Triangulation/trilateration  •   Network built up with successive intersections based on triangles and quadrilaterals  ▪   Traverse sometimes used  •   Successive radiations between known points  ▪   Astronomic observations  •   For absolute position and azimuth
+--PAGE 71--
+Advanced surveying techniques
+--PAGE 72--
+Introduction  •   The techniques presented are the basic  measurement tools of land surveyors  •   They   are   usually   expanded   into   more  complex   forms   for   control   networks   and  large-area surveys  ▪   Traversing  ▪   Triangulation networks}  ▪   Trigonometric levelling }  Not so popular as GPS has largely replaced these
+--PAGE 73--
+Traversing  •   Start from a control point and locate new  points by successive radiations  •   End on  ▪   Starting point, closed loop traverse  •   Scale error not detectable  •   Orientation error  ▪   Another control point, closed traverse  •   Both need additional points for traverse orientation  •   Open traverse should be avoided
+--PAGE 74--
+Closed loop traverse  P1(X P1 ,Y P1 )  P2   P2 P2(X   ,Y   )  P3   P3 P3(X   ,Y   )  P4(X P4 ,Y P4 )  P5   P5 P5(X   ,Y   )  P6(X   ,Y   )  P7(X P7 ,Y P7 ) P8(X P8 ,Y P8 )  r AP1   AP1  R1(X R1 ,Y R1 )  Bearing  to   R1 ,    AR1   P1P2   P3P4   P4P5   P5P6   P7P8   P8A  r   P2P3  P1P2  r P2P3   r P3P4  r P4P5  r P5P6   P6P7  P6   P6  r P6P7  r P7P8  A(X A ,Y A )   AR1   r P8A  Primary traverse  Secondary  traverse
+--PAGE 75--
+Closed traverse  A(X A ,Y A )  P1(X P1 ,Y P1 )  P2   P2 P2(X   ,Y   )  P3   P3 P3(X   ,Y   )  B(X B ,Y B )  r AP1   AP1  Bearing to   R1 ,    AR1  R1(X R1 ,Y R1 )   P1P2   BR2  r   P2P3  P1P2   P3P4  r P2P3   r P3B  Primary traverse  Secondary  traverse  R2(X R2 ,Y R2 )  Bearing  to   R2 ,    BR2
+--PAGE 76--
+Traverse calculations  •   Two types  ▪   Manual  ▪   Least squares  •   Manual computation has several steps  ▪   Adjust angles/bearings  ▪   Compute traverse misclose  ▪   Adjust traverse  •   Least squares does this simultaneously
+--PAGE 77--
+Traverse calculations - manual  •   Angle adjustment  ▪   All internal or external angles are measured  ▪   Compute misclose  ▪   Distribute misclose equally amongst angles  •   Bearing adjustment  ▪   Compute bearings of all lines  ▪   Compute misclose  ▪   Distribute misclose equally amongst computed  bearings  m   =       − 180(n      2)  m   =    computed   −    true
+--PAGE 78--
+Traverse calculations - manual   l  p   =   m  •   Traverse misclose  ▪   Compute    E   and    N   for each line and their sums  •   For loop traverse sums should equal zero  •   For closed traverse sums should equal that between control points  ▪   Compute   m E   and   m N  ▪   Compute length of misclose and traverse precision   m   =   m E  2   +   m   N  2
+--PAGE 79--
+Traverse calculations - manual  •   Adjust using  ▪   Bowditch method  •   Proportional to    E   and    N   components  ▪   Equal adjustment  •   Proportional to the number of legs  •   Compute final coordinates, bearings and  distances based on adjusted    E   and    N  l  =    N   −   m •   Proportional to distance    N  ▪   Transit method   l  l  i  i   N   l  i   E i   =    E i   −   m E  i adj  adj
+--PAGE 80--
+Traverse calculations - l.s.  •   One technique is based on variation of  coordinates  ▪   Observation   equations   for   distances,   angles  and bearings in terms of coordinates of points of  the traverse stations  ▪   Importance   of   each   observation   given   by   their standard deviations  ▪   All   equations   are   solved   simultaneously   to produce   a   set   of   traverse   station   coordinates and estimated precision
+--PAGE 81--
+Topographic surveys- Philosophy  •   Work from third order control network  •   Use plane surveying techniques  •   May   need   to   establish   additional   local  control by 3D traverse or 2D traverse and  levelling  •   Detail   obtained   by   combination   of   radiation and tape measurement  •   Salient points checked by second radiation  •   Applied to mapping scales < 1:10,000
+--PAGE 82--
+Topographic surveying
+--PAGE 83--
+Land surveying  •   An outline of the tasks, techniques and  tools of the land surveyor  •   References  ▪   Uren, J. (various)   Surveying for Engineers.  ▪   CalTrans  ▪   YouTube
+### C:\Users\金毅成\Desktop\Topic_4_Photogrammetry.pdf pages=57
+--PAGE 1--
+LSGI522 Spatial Data Acquisition  Topic 4  Photogrammetry
+--PAGE 2--
+Photogrammetry
+--PAGE 3--
+Introduction  •   What is photogrammetry?  •   Types of photogrammetry  •   Applications of photogrammetry  •   Photogrammetric operations and products
+--PAGE 4--
+What is photogrammetry?
+--PAGE 5--
+Photogrammetry  •   International Society for Photogrammetry and Remote Sensing  ▪   “Photogrammetry   and Remote Sensing is the art, science, and technology of obtaining reliable information from non-contact imaging and other sensor systems about the Earth and  its environment, and other physical objects  and processes through recording, measuring, analyzing and   representation.”
+--PAGE 6--
+The concept  •   The photography  ▪   A photograph is a perspective projection  ▪   A 3D object is transformed into a 2D image via a perspective centre  ▪   The appearance of photographs depend on  •   The location of the camera  ▪   Where the   camera’s   perspective centre is  •   The orientation of the camera  ▪   The direction the camera is pointing  •   The principal distance of the   camera’s   lens  •   The size of the image sensor  source  source
+--PAGE 7--
+The concept  Object  Perspective centre  Projection plane
+--PAGE 8--
+The concept  •   The photogrammetry  ▪   Take two (or more) images that overlap from different locations  ▪   Re-establish relationship between object and camera by measuring points on the images  ▪   Re-create a model of the object by   “back projection”  source
+--PAGE 9--
+The concept
+--PAGE 10--
+The concept
+--PAGE 11--
+Reconstruct the model  Negative image   Negative image  Positive image  Positive image Perspective centre  Perspective centre  Object  •   Perspective centre = point through which all rays pass from object to image plane  •   Principal point = projection of perspective centre onto image  plane  •   Principal distance (c) = distance from perspective centre to image plane  •   Focal length (f)
+--PAGE 12--
+The concept
+--PAGE 13--
+Accuracy  •   Accuracy of the recreated model depends on  ▪   Scale of images  ▪   Accuracy of camera information (interior  orientation)  ▪   Accuracy of image measurement  ▪   Accuracy of determining the   camera’s   exterior  orientation  •   Accuracy of object control  ▪   Base:Object ( B: O )
+--PAGE 14--
+Scale  Datum  B  A   h B  h A  H  c a   b  object distance:  O =   H −   h h H c O c s   − = =
+--PAGE 15--
+Nominal scale = 0.5/12,500 = 1:25,000   Nominal scale = 0.5/4,000 = 1:8,000
+--PAGE 16--
+Nominal scale = 0.5/2,000 = 1:4,000
+--PAGE 17--
+Base   :   Object  •   For a stereopair  •   B: O   controls parallactic (intersection)  angles and   x -parallax  •   Larger angles give more precise object  distances (heights)  Wolf
+--PAGE 18--
+x -parallax  x L  y L  x R  y R  x -parallax   p x   = x L   −   x R  Parallactic angle   ϕ   =   tan −1   x L   −   tan −1   x R  x L   x R  y L   y R  B   B  O  ϕ   ϕ  c   c
+--PAGE 19--
+Types of photogrammetry
+--PAGE 20--
+Types of photogrammetry  •   The type of equipment used  ▪   Analogue  ▪   Analytical  ▪   Digital  •   The type of cameras used  ▪   Metric  •   Stable geometry  •   Designed for photogrammetry  ▪   Non-metric  •   Unstable internal geometry  •   Consumer
+--PAGE 21--
+Cameras
+--PAGE 22--
+Types of photogrammetry  •   The equipment used  ▪   Analogue  ▪   Analytical  ▪   Digital
+--PAGE 23--
+Types of photogrammetry  •   The type of cameras  ▪   Calibration state  •   Metric or non-metric  ▪   Format size (analogue)  •   Small, medium, large  ▪   35mm, 55mm, 230mm  ▪   Field of view,   α  •   Normal, wide, super-wide  ▪   60  , 95  , 120      d        =   2.   tan   1         2c      d  c 𝛼
+--PAGE 24--
+Types of photogrammetry  •   Aerial  ▪   Camera in the sky  ▪   Pointing towards the ground  •   Terrestrial  ▪   On or close to the ground  ▪   Pointing  •   Horizontally  •   Obliquely upwards or downwards  24
+--PAGE 25--
+Aerial photogrammetry
+--PAGE 26--
+Aerial photogrammetry  •   Parallel axis  •   Taken from above the ground  ▪   Vertical   –   no tilt from vertical axis  ▪   Near vertical   –   less than 3 °   tilt from vertical  ▪   Low oblique   –   no horizon  ▪   High oblique   –   includes horizon  •   Overlapping with parallel axis geometry  ▪   Strips and blocks  •   Kite, balloon, aeroplane, spacecraft   …
+--PAGE 27--
+Aerial photogrammetry  Wolf
+--PAGE 28--
+
+--PAGE 29--
+
+--PAGE 30--
+Photographic strip  •   A strip is the set of photographs taken along the line of flight  Wolf  Datum  h ave  H   O ave  B, Camera base, air base  Distance between successive exposures Distance between edges of successive photos  H   =   flying height  Height of the camera above the datum  h ave   =   average terrain height  O ave   =   average object distance  O ave   = H   −   h ave
+--PAGE 31--
+End lap,   E  •   This   is   the   amount   by   which   the   photographs  overlap along the strip  ▪   E% =   G−B   . 100% G  •   For stereoscopic viewing   E   is typically   60%   −   80%  of the coverage ( G )  ▪   The camera base ( B ) would be   40%   −   20%   of   G  •   Photographs may be taken with   90%   or   80%   end  lap  •   Less   than   50%   end   lap   will   not   guarantee complete coverage  •   More than   60%   end lap reduces the amount of   x -  parallax   and   produces   poorer   accuracy   stereo models but is easier to view  ▪   Stereo model is the 3D view from a pair of stereo-  viewable photographs
+--PAGE 32--
+Side lap,   S  •   Lateral separation of flight lines is the strip  spacing,   W  •   Side lap is the amount of overlap across  the block  ▪   S% =   G−W  G   . 100%  •   S   is typically   30%   of   G   so   W   is   70%   of   G
+--PAGE 33--
+Photographic block  •   Strips are joined together to form blocks of photographs  Wolf
+--PAGE 34--
+A complex block
+--PAGE 35--
+Photogrammetric operations
+--PAGE 36--
+Operations  •   Before products can be created  ▪   Recreate   geometric   relationship   between  images and object  •   Exterior orientation  ▪   Define   the internal   geometry of   the camera  and stablish relationship between measuring  system and images  •   Interior orientation  •   Data then created by 3D digitising either  manually or automatically
+--PAGE 37--
+Exterior Orientation  •   Recreate the geometric relationship between the image coordinates and the object coordinates  •   Can be done  ▪   For a single photo  ▪   For a stereopair  ▪   For a block of photographs
+--PAGE 38--
+Two approaches to EO  •   Two-step solution  ▪   Relative orientation (RO)  ▪   Absolute orientation (AO)  ▪   A stereopair at one time  •   Direct solution  ▪   Collinearity (space resection)  ▪   1 or more photos  ▪   Simultaneous computation  •   Bundle or block adjustment (BA)  ▪   Collinearity equations
+--PAGE 39--
+Interior orientation (IO)  •   EO requires measurement on images in the image coordinate system  •   Instruments have own coordinate system  •   IO relates the two coordinate systems  ▪   2D coordinate transformations  •   Rigid body, conformal, affine, projective  ▪   Allows  •   Camera calibration parameters to be applied  •   Corrections for image deformation to be applied
+--PAGE 40--
+Collinearity condition  c 3 Photogrammetry  Image space  Object space  X  Y  Z  x  y  z   x  y  Perspective centre  Image space   (0,0,0)  Object space   (X 0 ,Y 0 ,Z 0 )  X 0  Y 0  Z 0  Object point   (X A ,Y A ,Z A )  Negative image plane  Image point   (x a ,y a ,c)  x  y  Positive image plane Image point   (-x a ,-y a ,-c)
+--PAGE 41--
+Image space coordinates  (Nominal) Direction of flight  I IV  Principal point  (0,0,-c)  1   1 y   (x ,y )  (x 2 ,y 2 )   II III   (x 3 ,y 3 )  4   4 (x ,y )   •   3D   origin   is   perspective centre  •   2D origin is the principal point  •   x   axis   is   in   direction   of  travel (to the right)  •   x Defined by fiducial marks  •   Conformal transformation  ▪   When there is no change in shape  •   Affine transformation  ▪   When there is a change in shape between the times  O f photography and measurement
+--PAGE 42--
+Collinearity condition  Fundamental relationship  for photogrammetry
+--PAGE 43--
+Image/object relationship  •   Under perfect conditions, the  object point, perspective centre and image point lie on the one straight line  •   This is the condition of  collinearity  •   Defined in terms of image coordinates   (x, y, z)   and  object coordinates   (X, Y, Z)  Wolf
+--PAGE 44--
+Object space coordinates  •   Cartesian  ▪   National coordinate system  ▪   Local coordinate system  ▪   Arbitrary coordinate system  •   What should be done with HK80 coordinates?
+--PAGE 45--
+Collinearity equations  See Appendix D, Wolf  m 31 (X   −   X 0   )   +   m 32   (Y   −   Y 0 )   +   m 33 (Z   −   Z 0   )  x   =   − c  m 11 (X   −   X 0   )   +   m 12 (Y   −   Y 0 )   +   m 13 (Z   −   Z 0   ) m 31 (X   −   X 0   )   +   m 32   (Y   −   Y 0 )   +   m 33 (Z   −   Z 0   )  y   =   − c   m 21 (X   −   X 0   )   +   m 22   (Y   −   Y 0 )   +   m 23 (Z   −   Z 0   )  Image coordinates   Object coordinates   Rotation matrix elements Principal distance  •   Scale  ▪   Principal distance,   c  •   Rotation  ▪   m 11   …   m 33   describe rotations between the image and  object space coordinate systems  •   Translation  ▪   X 0 ,Y 0 ,Z 0 , the object space coordinates of the  perspective centre
+--PAGE 46--
+Collinearity equations  •   Has many uses  ▪   With control points to solve the EO  •   X 0 ,Y 0 ,Z 0 ,  ,  ,   •   Space resection  ▪   With known EO to compute object coordinates  •   X A ,Y A ,Z A  •   Space intersection  ▪   Simultaneous solution for all parameters  •   Bundle or block adjustment  ▪   In modified form can calibrate a camera  •   Self-calibrating bundle adjustment
+--PAGE 47--
+Relative orientation
+--PAGE 48--
+Relative orientation  •   Establish the relative relationship between a pair of  images  •   Use an arbitrary coordinate system based on left image perspective centre and set   x r   = 1  •   Solve for    ,  ,  ,Y L ,Z L  •   Require 5 conjugate point pairs  •   Typically observe von Gruber points
+--PAGE 49--
+Coplanarity condition  Fundamental relationship between  overlapping pairs of images
+--PAGE 50--
+Image pair relationships  •   Two images see the same object  point   and ▪   Collinearity   between   one   object conjugate image points  ▪   Define a plane  •   Epipolar plane  ▪   Thus the conjugate points are coplanar  •   Two perspective centres  •   Two (conjugate) image points  •   Object point
+--PAGE 51--
+Coplanarity condition  Wolf  •   Not necessary to have object  coordinates  •   Epipolar plane also defined by  •   Two perspective centres  •   Two (conjugate) ima ge   points  r   r   r  (x a   ,y a   ,-c )  Epipolar plane  Camera base  (bx l ,by l ,bz l )  Epipolar axis  (x a   ,y a   ,-c ) l   l   l  Epipolar lines  bx l  by l  bz l
+--PAGE 52--
+Coplanarity equation  •   All vectors are in object space coordinates  ▪   The parallelepiped formed by the camera base  vector and the two image vectors has a  volume of zero:  x r   y r  a   a  x l   y l  a   a  b l   b l   b l  x   y   z  −   c r  −   c l   =   0  b l   (y r   c l   −   y l   c r   )   +   b l   (x l   c r   −   x r   c l   )   +   b l   (x l   y r   −   x r   y l   )   =   0  Left image coordinate system  Right image coordinate system  x   a   a   y   a   a   z   a   a   a   a
+--PAGE 53--
+Coplanarity equation  •   Use left image coordinate system  •   Convert right image coordinates into  coordinate system parallel to left image  •   The rotation angles describe the relative  rotation of right image wrt left image  x l'   =   m r'   x r   +   m r'   y r   −   m r'   c r r   11   21   31  y l'   =   m r'   x r   +   m r'   y r   −   m r'   c r  r   12   22   32  z l'   =   m r'   x r   +   m r'   y r   −   m r'   c r  r   13   23   33
+--PAGE 54--
+Use of coplanarity condition  •   Two uses  ▪   Relative orientation  •   Set   b x   = 1   and solve for   b y ,b z ,  ,  ,   ▪   Coplanarity condition  ▪   Collinearity condition  •   Produces model coordinates  ▪   Creates a stereo model has nominal scale and measured   points   are   in   model   coordinate  system  •   Must perform an absolute orientation to convert into an object coordinate system
+--PAGE 55--
+Absolute orientation
+--PAGE 56--
+Absolute orientation  •   3D conformal transformation between  model and object coordinates  •   7 parameters  ▪   s,    ,    ,    , T X , T Y , T Z  ▪   Minimum control is 2   XY   and 3   Z   coordinates  ▪   Typically use 3   XYZ
+--PAGE 57--
+Reference material  •   Atkinson  ▪   Close range photogrammetry and machine vision.  TA593.C55 1996  •   Karara  ▪   Manual of non-topographic photogrammetry.  TR693.H33 1989  •   McGlone, Mikhail and Bethel  ▪   Manual of photogrammetry. 5th ed. TA593.A63 2004  •   Mikhail, Bethel and McGlone  ▪   Introduction to modern photogrammetry. TR693.M55 2001  •   Warner, Graham and Read  ▪   Small format aerial photography. TR810.W37 1996  •   Wolf  ▪   Elements of photogrammetry. TR693.W64 2000

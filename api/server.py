@@ -63,6 +63,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 class TaskRequest(BaseModel):
     query: str
     thread_id: str = None
@@ -224,7 +225,7 @@ async def list_files(path: str = None):
 # 3. 注入参数 ：FastAPI 自动把这个刚创建好的 WebSocket 对象，作为参数传给你的 websocket_endpoint(websocket, ...) 函数。
 @app.websocket("/ws/{thread_id}")
 async def websocket_endpoint(websocket: WebSocket, thread_id: str):
-    print(f"会话向我们发起了请求，要求简历连接：{thread_id} 对应：{websocket}")
+    print(f"会话向我们发起了请求，要求建立连接：{thread_id} 对应：{websocket}")
     """
     WebSocket 实时通讯核心接口 (Real-time Communication)。
 
@@ -269,4 +270,4 @@ async def websocket_endpoint(websocket: WebSocket, thread_id: str):
         manager.disconnect(websocket, thread_id)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=False)
+    uvicorn.run(app, host="127.0.0.1", port=8000, reload=False)

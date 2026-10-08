@@ -70,9 +70,35 @@ def internet_search(
     )
 
     # 带重试的搜索调用（指数退避，最多 3 次）
-    return _search_with_retry(
+    response = _search_with_retry(
         query=query,
         topic=topic,
         max_results=max_results,
         include_raw_content=include_raw_content,
     )
+
+    results = []
+    seen_urls = set()
+    truncation_marker = "[已截断]"
+    for item in response["results"]:
+        url = item["url"]
+        if url in seen_urls:
+            continue
+        seen_urls.add(url)
+
+        result = {
+            "title": item["title"],
+            "url": url,
+            "content": item["content"],
+        }
+        if include_raw_content:
+            result["raw_content"] = item.get("raw_content")
+
+        for field, limit in (("content", 1000), ("raw_content", 4000)):
+            content = result.get(field)
+            if content and len(content) > limit:
+                result[field] = content[:limit - len(truncation_marker)] + truncation_marker
+        results.append(result)
+
+    response["results"] = results
+    return response

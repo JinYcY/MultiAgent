@@ -135,13 +135,13 @@ async def run_deep_agent(task_query,session_id):
     try:
         main_agent = await get_main_agent()
         print(f"\n==== [Checkpoint 手动探测] thread_id = {session_id} ====")
-        # get_tuple(thread_id) 就是框架底层用来读取检查点的方法
-        saved_tuple = await main_agent.checkpointer.get_tuple(config)
+        # 使用异步接口读取检查点
+        saved_tuple = await main_agent.checkpointer.aget_tuple(config)
         if saved_tuple is None:
             print(f"[Checkpoint探测结果] DB中没有找到该thread_id的历史检查点 → 全新会话")
         else:
             print(f"[Checkpoint探测结果] ✅读到历史检查点！")
-            print(f"  checkpoint_id: {saved_tuple.checkpoint_id}")
+            print(f"  checkpoint_id: {saved_tuple.checkpoint['id']}")
             print(f"  消息列表长度: {len(saved_tuple.checkpoint['channel_values']['messages'])}")
         # 执行
         async for chunk in main_agent.astream({

@@ -343,7 +343,7 @@ function renderLog(session) {
   area.innerHTML = session.logs.map(l => {
     const t = tagMap[l.event] || tagMap.tool_start;
     const resultBlock = l.data?.result
-      ? `<div class="log-result-block">${escapeHtml(l.data.result.substring(0, 800))}${l.data.result.length > 800 ? '…' : ''}</div>`
+      ? `<div class="log-result-block">${escapeHtml(l.data.result.substring(0, 3000))}${l.data.result.length > 3000 ? '…' : ''}</div>`
       : '';
     return `<div class="log-entry">
       <div class="log-dot ${t.dot}"></div>

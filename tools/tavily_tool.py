@@ -46,7 +46,7 @@ def _search_with_retry(query: str, topic: str, max_results: int, include_raw_con
 def internet_search(
     query: str,
     topic: Literal["news", "finance", "general"] = "general",
-    max_results: int = 2,
+    max_results: int = 1,
     include_raw_content: bool = False,
 ):
     """
@@ -69,7 +69,7 @@ def internet_search(
         },
     )
 
-    # 带重试的搜索调用（指数退避，最多 3 次）
+    # 带重试的搜索调用（指数退避，最多 1 次）
     response = _search_with_retry(
         query=query,
         topic=topic,

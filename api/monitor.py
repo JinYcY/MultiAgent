@@ -89,6 +89,7 @@ class ToolMonitor:
                             )
                     else:
                         # 如果没有 thread_id，说明可能是系统级消息，或者未上下文环境
+                        print("没有 thread_id")
                         pass
             except Exception as e:
                 print(f"[Monitor] WebSocket send failed: {e}")
@@ -107,11 +108,11 @@ class ToolMonitor:
 
     def report_tool(self, tool_name: str, args: Dict[str, Any] = None):
         """报告工具开始执行"""
-        self._emit("tool_start", f"开始执行工具: {tool_name}", {"tool_name": tool_name, "args": args})
+        self._emit("tool_start", f"开始执行工具: {tool_name}, 请耐心等待", {"tool_name": tool_name, "args": args})
 
     def report_assistant(self, assistant_name: str, args: Dict[str, Any] = None):
         """报告正在调用的子智能体进度"""
-        self._emit("assistant_call", f"正在调用助手: {assistant_name}",
+        self._emit("assistant_call", f"正在调用助手: {assistant_name}, 准备调用工具~~",
                    {"assistant_name": assistant_name, "args": args})
 
     def report_task_result(self, result: str):

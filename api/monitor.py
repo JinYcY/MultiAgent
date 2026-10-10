@@ -122,6 +122,9 @@ class ToolMonitor:
     def report_session_dir(self, path: str):
         """报告任务工作目录"""
         self._emit("session_created", f"工作目录已创建: {path}", {"path": path})
+    def report_task_result_failure(self, result: str):
+        """报告任务最终结果"""
+        self._emit("task_result", "很抱歉，任务执行失败了，因为...", {"result": result})
 
 
 # 全局单例实例

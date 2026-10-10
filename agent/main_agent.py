@@ -132,10 +132,10 @@ async def run_deep_agent(task_query,session_id):
     4. 若存在上传文件，请先分析内容
     """
     # 反馈结果
+    main_agent = await get_main_agent()
+    print(f"\n==== [Checkpoint 手动探测] thread_id = {session_id} ====")
+    # 使用异步接口读取检查点
     try:
-        main_agent = await get_main_agent()
-        print(f"\n==== [Checkpoint 手动探测] thread_id = {session_id} ====")
-        # 使用异步接口读取检查点
         saved_tuple = await main_agent.checkpointer.aget_tuple(config)
         if saved_tuple is None:
             print(f"[Checkpoint探测结果] DB中没有找到该thread_id的历史检查点 → 全新会话")
@@ -143,46 +143,50 @@ async def run_deep_agent(task_query,session_id):
             print(f"[Checkpoint探测结果] ✅读到历史检查点！")
             print(f"  checkpoint_id: {saved_tuple.checkpoint['id']}")
             print(f"  消息列表长度: {len(saved_tuple.checkpoint['channel_values']['messages'])}")
-        # 执行
-        async for chunk in main_agent.astream({
-            "messages":[
-                {
-                    "role":"user","content":task_query+path_instruction
-                }
-            ]
-        },config=config):
-            # {"model [大模型决定调用工具 子智能体  最终结果] / tools" : {messages:[xxx...]}}
-            for node_name,state in chunk.items():
-                if not state or "messages" not in state: continue
-                messages = state["messages"]
-                if messages and isinstance(messages,list):
-                    last_msg = messages[-1]
-                    if node_name == 'model':
-                        if last_msg.tool_calls:
-                            # 工具和子智能体
-                            for tool_call in last_msg.tool_calls:
-                                """
-                                  tool_call = {
-                                      name: task
-                                      args:{
-                                          subagent_type:子智能体的名字
-                                          description:子智能体的描述
-                                      }
-                                  }                                
-                                """
-                                if tool_call['name'] == 'task':
-                                    # 调用某个子智能体
-                                    print("正在调用子agent", tool_call['args']['subagent_type'])
-                                    monitor.report_assistant(tool_call['args']['subagent_type'],{'description':tool_call['args']['description']})
-                        elif last_msg.content:
-                            # 最终结果
-                            print(f"主智能体执行结果，最终结果：{last_msg.content}")
-                            monitor.report_task_result(last_msg.content)
-
-    except Exception as e :
-        # 报错推送错误信息给前端
-        monitor._emit("error",f"执行主智能发生异常信息：{str(e)}")
+    except Exception as e:
+        print(f"读取检查点失败，继续执行新会话: {str(e)}")
+    
+    # 让所有工具自然执行完成，不添加额外的异常捕获和降级重试
+    try:
+         async for chunk in main_agent.astream({
+             "messages":[
+                 {
+                     "role":"user","content":task_query + path_instruction
+                 }
+             ]
+         },config=config):
+             # {"model [大模型决定调用工具 子智能体  最终结果] / tools" : {messages:[xxx...]}}
+             for node_name,state in chunk.items():
+                 if not state or "messages" not in state: continue
+                 messages = state["messages"]
+                 if messages and isinstance(messages,list):
+                     last_msg = messages[-1]
+                     if node_name == 'model':
+                         if last_msg.tool_calls:
+                             # 工具和子智能体
+                             for tool_call in last_msg.tool_calls:
+                                 """
+                                   tool_call = {
+                                       name: task
+                                       args:{
+                                           subagent_type:子智能体的名字
+                                           description:子智能体的描述
+                                       }
+                                   }                                
+                                 """
+                                 if tool_call['name'] == 'task':
+                                     # 调用某个子智能体
+                                     print("正在调用子agent", tool_call['args']['subagent_type'])
+                                     monitor.report_assistant(tool_call['args']['subagent_type'],{'description':tool_call['args']['description']})
+                         elif last_msg.content:
+                             # 最终结果
+                             print(f"主智能体执行结果，最终结果：{last_msg.content}")
+                             monitor.report_task_result(last_msg.content)
+    except Exception as e:
+         # 最后的异常保险，确保不会崩溃
+         print(f"执行过程中发生未处理的异常：{str(e)}")
+         monitor._emit("error",f"执行主智能发生异常信息：{str(e)}")
+         monitor.report_task_result(f"很抱歉，任务执行过程中遇到了一些问题，但大部分信息应该已经获取到了。错误详情：{str(e)}")
     finally:
-        # 释放存储的地址和session_id
-        reset_session_context(session_dir_token, session_id_token)
-
+         # 无论如何都释放存储的地址和session_id
+         reset_session_context(session_dir_token, session_id_token)

@@ -22,14 +22,14 @@ def get_db_config():
         "connection_timeout": int(os.getenv("MYSQL_TIMEOUT", "10")),
         "sql_mode": os.getenv("MYSQL_SQL_MODE", "TRADITIONAL"),
     }
-    # 移除 None 值（核心必要操作）
+    # 移除 None 值
     config = {k: v for k, v in config.items() if v is not None}
 
-    # 补充：校验核心配置是否存在（可选但推荐）
+    # 校验核心配置是否存在，如果缺失返回None，避免抛出异常
     required_keys = ["user", "password", "database"]
     missing_keys = [k for k in required_keys if k not in config]
     if missing_keys:
-        raise ValueError(f"缺失数据库核心配置：{', '.join(missing_keys)}")
+        return None
 
     return config
 
@@ -45,6 +45,8 @@ def list_sql_tables()->str:
     monitor.report_tool(tool_name="数据库表名查询工具：list_sql_tables", args={})
     # 加载数据库信息配置
     config = get_db_config()
+    if not config:
+        return {"error": "数据库配置缺失，无法使用数据库功能，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
 
     # 1. 创建一个链接
     # 2. 创建cursor
@@ -68,7 +70,7 @@ def list_sql_tables()->str:
                 table_names = [table[0] for table in tables]
                 return f"可用的表有：{', '.join(table_names)}"
     except Error as e:
-        return f"查询出现异常：{str(e)}"
+        return {"error": f"数据库工具执行失败：{str(e)}，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
 
 
 @tool
@@ -94,6 +96,10 @@ def get_table_data(table_name)->str:
 
     # 获取数据库参数
     config = get_db_config()
+    if not config:
+        return {"error": "数据库配置缺失，无法使用数据库功能，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
+    if not config:
+        return {"error": "数据库配置缺失，无法使用数据库功能，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
     # 1. 创建一个链接
     # 2. 创建cursor
     # 3. cursor执行sql语句
@@ -134,7 +140,7 @@ def get_table_data(table_name)->str:
                 data_str = "\n".join(results)
                 return f"{header_str}\n{data_str}"
     except Error as e:
-        return f"查询出现异常：{str(e)}"
+        return {"error": f"数据库工具执行失败：{str(e)}，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
 
 
 @tool
@@ -199,15 +205,9 @@ def execute_sql_query(query)->str:
                 data_str = "\n".join(results)
                 return f"{header_str}\n{data_str}"
     except Error as e:
-        return f"查询出现异常：{str(e)}"
+        return {"error": f"数据库工具执行失败：{str(e)}，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
 
 
 
 if __name__ == "__main__":
     print(execute_sql_query("SELECT * FROM orders WHERE category = '数码电子'"))
-
-
-
-
-
-

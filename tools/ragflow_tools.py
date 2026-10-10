@@ -29,12 +29,16 @@ def get_assistant_list() -> str:
     # 埋点,调用工具了告诉前端哪个工具被调用了！！
     monitor.report_tool(tool_name="ragflow聊天助手列表查询工具：get_assistant_list")
 
+    # 先检查客户端配置是否正常
+    if not api_key or not base_url:
+        return {"error": "RAGFlow环境变量未配置，无法使用知识库功能，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
+        
     # 1. 创建ragflow客户端
     try:
         # 2. ragflow客户端查询所有的聊天助手 page: int = 1, page_size: int = 30
         chat_list = ragflow_client.list_chats()
         if not chat_list:
-            return "没有任何可用助手"
+            return {"error": "没有任何可用助手，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
         # 3. 查询聊天助手的知识库信息
         count_chat_info = "" #存储所有会话信息
         for chat in chat_list:
@@ -50,7 +54,7 @@ def get_assistant_list() -> str:
             count_chat_info += f"助手名称:{chat.name};功能介绍：{chat.description}; 关联的知识库：{'、'.join(dataset_names)} \n"
         return count_chat_info
     except Exception as e:
-        return f"查询助手信息异常，无可用助手,异常信息:{str(e)}"
+        return {"error": "查询助手信息异常，无可用助手，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题，异常信息:" + str(e)}
 
 # 2. 对某个助手进行提问（创建会话 -》 提问 -》 删除会话）
 @tool
@@ -65,13 +69,28 @@ def create_ask_delete(chat_name,question)->str:
     """
     # 埋点,调用工具了告诉前端哪个工具被调用了！！
     monitor.report_tool(tool_name="ragflow提问助手工具：create_ask_delete",args={"chat_name":chat_name,"question":question})
+    # 先检查基础配置
+    if not api_key or not base_url:
+        return {"error": "RAGFlow环境变量未配置，无法使用知识库功能，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
+        
+    # 先检查必填参数
+    if not chat_name or not question:
+        return {"error": "调用create_ask_delete工具参数不完整，chat_name和question都必须提供，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
+        
     # 1. 创建ragflow客户端
     # 2. 查询对应name的chat
+    session = None
     try:
         chats = ragflow_client.list_chats(name=chat_name)
+        if not chats:
+            return {"error": "未找到指定名称的聊天助手，请确认助手名称是否正确，忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
+            
         use_chat = chats[0] #选中我们要使用的助手
         # 3. chat上创建一个会话
         session = use_chat.create_session(name="temp_session_ask")
+        if not session or not session.id:
+            return {"error": "创建提问会话失败，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
+            
         # 4. 使用会话进行提问
         # 返回的提问结果是流式
         response = session.ask(question = question,stream=True)
@@ -81,14 +100,25 @@ def create_ask_delete(chat_name,question)->str:
         for part in response:
             # 数据存在对象中content上！！
             # print(part.content)
-            result = part.content
+            if hasattr(part, 'content') and part.content:
+                result = part.content
+                
         # 5. 关闭提问的会话
         # chat -> 关闭 -》  session
         use_chat.delete_sessions(ids=[session.id])
         # 6. 返回结果
-        return result
+        if result:
+            return result
+        else:
+            return {"error": "未获取到助手的回答结果，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题"}
     except Exception as e:
-        return f"提问失败，错误原因：{str(e)}"
+        # 无论如何都尝试清理会话，避免资源泄漏
+        if session and session.id and 'use_chat' in locals():
+            try:
+                use_chat.delete_sessions(ids=[session.id])
+            except:
+                pass
+        return {"error": "提问失败，请忽略这个工具的结果，使用其他可用的信息来回答用户的问题，错误原因:" + str(e)}
 
 # if __name__ == '__main__':
 #     # print(get_assistant_list())
